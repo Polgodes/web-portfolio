@@ -1,21 +1,26 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Inter } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
-import { Navigation } from "@/components/navigation"
-import { Footer } from "@/components/footer"
+import { Navigation } from "@/app/navigation/navigation"
+import { Footer } from "@/app/footer/footer"
+import { Poppins } from "next/font/google";
 
-const inter = Inter({ subsets: ["latin"] })
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"], // choose the weights you need
+  variable: "--font-poppins", // custom CSS variable
+  display: "swap",
+});
 
 export const metadata: Metadata = {
-  title: "John Developer - Full-Stack Developer Portfolio",
+  title: "Paul.Developer - Full-Stack Developer Portfolio",
   description:
     "Full-stack developer specializing in React, Next.js, and modern web technologies. View my projects and get in touch.",
   keywords: ["developer", "portfolio", "React", "Next.js", "full-stack", "web development"],
-  authors: [{ name: "John Developer" }],
+  authors: [{ name: "Paul.Developer" }],
   openGraph: {
-    title: "John Developer - Full-Stack Developer Portfolio",
+    title: "Paul.Developer - Full-Stack Developer Portfolio",
     description: "Full-stack developer specializing in React, Next.js, and modern web technologies.",
     type: "website",
   },
@@ -28,11 +33,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
+      <body className={`${poppins.variable} font-sans`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-          <Navigation />
-          <main className="pt-16">{children}</main>
-          <Footer />
+          <div className="relative flex min-h-screen flex-col">
+            <Navigation />
+            <main className="flex-1">{children}</main>
+            <Footer />
+          </div>
         </ThemeProvider>
       </body>
     </html>

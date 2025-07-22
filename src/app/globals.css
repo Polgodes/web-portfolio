@@ -1,4 +1,6 @@
 @import "tailwindcss";
+/* Remove or verify this import exists */
+/* @import "tw-animate-css"; */
 
 @custom-variant dark (&:is(.dark *));
 
@@ -146,7 +148,7 @@
   }
 }
 
-/* Custom animations */
+/* Custom animations if tw-animate-css is not available */
 @layer utilities {
   .animate-fade-in {
     animation: fadeIn 0.5s ease-in-out;
@@ -154,11 +156,6 @@
 
   .animate-slide-up {
     animation: slideUp 0.6s ease-out;
-  }
-
-  .bg-grid-pattern {
-    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
-    background-size: 20px 20px;
   }
 }
 

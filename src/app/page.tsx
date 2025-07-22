@@ -1,15 +1,15 @@
-import { Hero } from "@/components/hero"
-import { About } from "@/components/about"
-import { Projects } from "@/components/projects"
-import { Contact } from "@/components/contact"
+import { Hero } from "@/app/hero/hero"
+import { About } from "@/app/about/about"
+import { Projects } from "@/app/projects/projects"
+import { Contact } from "@/app/contact/contact"
 
 export default function Home() {
   return (
-    <main className="min-h-screen">
+    <>
       <Hero />
       <About />
-      <Projects />
-      <Contact />
-    </main>
+      {/* <Projects /> */}
+      {/* <Contact /> */}
+    </>
   )
 }

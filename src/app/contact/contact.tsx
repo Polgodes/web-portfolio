@@ -35,17 +35,18 @@ export function Contact() {
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Get In Touch</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            I'm always open to discussing new opportunities and interesting projects. Let's create something amazing
-            together!
+            I&apos;m always open to discussing new opportunities and interesting projects. Let&apos;s create something
+            amazing together!
           </p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-12 max-w-4xl mx-auto">
           <div className="space-y-8">
             <div>
-              <h3 className="text-2xl font-semibold mb-4">Let's talk</h3>
+              <h3 className="text-2xl font-semibold mb-4">Let&apos;s talk</h3>
               <p className="text-muted-foreground mb-6">
-                Whether you have a project in mind or just want to chat about technology, I'd love to hear from you.
+                Whether you have a project in mind or just want to chat about technology, I&apos;d love to hear from
+                you.
               </p>
             </div>
 
@@ -75,7 +76,9 @@ export function Contact() {
           <Card>
             <CardHeader>
               <CardTitle>Send me a message</CardTitle>
-              <CardDescription>Fill out the form below and I'll get back to you as soon as possible.</CardDescription>
+              <CardDescription>
+                Fill out the form below and I&apos;ll get back to you as soon as possible.
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSubmit} className="space-y-4">

@@ -7,9 +7,9 @@ export function Footer() {
       <div className="container mx-auto px-4 py-12">
         <div className="grid md:grid-cols-3 gap-8">
           <div>
-            <h3 className="font-bold text-lg mb-4">John Developer</h3>
+            <h3 className="font-bold text-lg mb-4">adrian.dev</h3>
             <p className="text-muted-foreground">
-              Full-stack developer passionate about creating beautiful, functional web experiences.
+              Full-stack Developer passionate about creating beautiful, functional web experiences.
             </p>
           </div>
 
@@ -61,7 +61,7 @@ export function Footer() {
         </div>
 
         <div className="border-t mt-8 pt-8 text-center text-muted-foreground">
-          <p>&copy; 2024 John Developer. All rights reserved.</p>
+          <p>&copy; 2025 adrian.dev. All rights reserved.</p>
         </div>
       </div>
     </footer>
