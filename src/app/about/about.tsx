@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useState } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Code, Palette, Zap, User, Gamepad2, Heart, Database, Settings } from "lucide-react"
+import { Code, Zap, User, Gamepad2, Heart, Database, Settings } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 
 
