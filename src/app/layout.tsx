@@ -14,13 +14,13 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "Paul.Developer - Full-Stack Developer Portfolio",
+  title: "Paul Adrian Godes | Full-Stack Web Developer",
   description:
     "Full-stack developer specializing in React, Next.js, and modern web technologies. View my projects and get in touch.",
   keywords: ["developer", "portfolio", "React", "Next.js", "full-stack", "web development"],
-  authors: [{ name: "Paul.Developer" }],
+  authors: [{ name: "Paul Adrian Godes"}],
   openGraph: {
-    title: "Paul.Developer - Full-Stack Developer Portfolio",
+    title: "Paul Adrian Godes | Full-Stack Web Developer",
     description: "Full-stack developer specializing in React, Next.js, and modern web technologies.",
     type: "website",
   },
