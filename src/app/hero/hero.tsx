@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { ArrowDown, Github, Linkedin, Mail } from "lucide-react"
+import { easeOut } from "framer-motion";
 import Link from "next/link"
 
 export function Hero() {
@@ -34,15 +35,18 @@ export function Hero() {
       x: 0,
       opacity: 1,
       transition: {
-        x: { type: "spring", stiffness: 300, damping: 30 },
-        opacity: { duration: 0.2 },
+        type: "spring" as const,
+        stiffness: 300,
+        damping: 30,
       },
     },
     exit: {
       x: -300,
       opacity: 0,
       transition: {
-        x: { type: "spring", stiffness: 300, damping: 30 },
+        type: "spring" as const, 
+        stiffness: 300, 
+        damping: 30,
         opacity: { duration: 0.2 },
       },
     },
@@ -67,7 +71,7 @@ export function Hero() {
       y: 0,
       transition: {
         duration: 0.6,
-        ease: "easeOut",
+        ease: easeOut,
       },
     },
   }
