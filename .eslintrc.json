@@ -1,0 +1,6 @@
+{
+  "extends": "next",
+  "rules": {
+    "react/jsx-no-duplicate-props": "off"
+  }
+}

@@ -179,17 +179,16 @@ export function Hero() {
 
         <motion.div
           className="absolute bottom-8 left-1/2 transform -translate-x-1/2 cursor-pointer"
+          initial={{ opacity: 0 }}
           animate={{
             y: [0, -10, 0],
+            opacity: 1,
           }}
           transition={{
             duration: 2,
             repeat: Number.POSITIVE_INFINITY,
             repeatType: "reverse",
           }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.2 }}
           onClick={() => {
             const aboutElement = document.getElementById("about")
             if (aboutElement) {
