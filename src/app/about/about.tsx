@@ -11,7 +11,7 @@ import { Badge } from "@/components/ui/badge"
 
 export function About() {
   const [activeTab, setActiveTab] = useState("developer")
-  const ref = useRef(null)
+  const ref = useRef<HTMLElement>(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
 
   const tabs = [
@@ -302,7 +302,14 @@ export function About() {
                     animate={{ scale: 1, opacity: 1 }}
                     transition={{ duration: 0.8, ease: [0.6, -0.05, 0.01, 0.99] }}
                   >
-                    <Image src="/about-me-photo.jpg" alt="Profile" fill className="object-cover rounded-2xl z-10" />
+                    <Image
+                      src="/about-me-photo.jpg"
+                      alt="Profile"
+                      fill
+                      className="object-cover rounded-2xl z-10"
+                      priority
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    />
                   </motion.div>
                 </motion.div>
               </motion.div>
@@ -381,7 +388,7 @@ export function About() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.4 }}
                       >
-                        {service.core?.length > 0 && (
+                        {service.core && service.core.length > 0 && (
                           <div className="mb-4">
                             <p className="text-sm font-medium text-muted-foreground mb-2 tracking-wider uppercase">
                               Core
@@ -411,7 +418,7 @@ export function About() {
                             </motion.div>
                           </div>
                         )}
-                        {service.additional?.length > 0 && (
+                        {service.additional && service.additional.length > 0 && (
                           <div>
                             <p className="text-sm font-medium text-muted-foreground mb-2 tracking-wider uppercase">
                               Additional
