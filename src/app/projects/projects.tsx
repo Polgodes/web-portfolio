@@ -24,23 +24,24 @@ export function Projects() {
   const featuredInView = useInView(featuredRef, { once: true, margin: "-50px" })
   const otherInView = useInView(otherRef, { once: true, margin: "-50px" })
 
-  // Remove smooth scroll effect that was causing auto-scroll to projects
   useEffect(() => {
-    // Only apply smooth scrolling when user actually clicks a link, not on page load
-    const handleClick = (e: Event) => {
-      const target = e.target as HTMLElement
-      if (target.tagName === "A" && target.getAttribute("href")?.startsWith("#")) {
-        document.documentElement.style.scrollBehavior = "smooth"
-        setTimeout(() => {
-          document.documentElement.style.scrollBehavior = "auto"
-        }, 1000)
+    const handleHashChange = () => {
+      const hash = window.location.hash
+      if (hash === "#projects") {
+        const element = document.getElementById("projects")
+        if (element) {
+          setTimeout(() => {
+            element.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            })
+          }, 100)
+        }
       }
     }
 
-    document.addEventListener("click", handleClick)
-    return () => {
-      document.removeEventListener("click", handleClick)
-    }
+    window.addEventListener("hashchange", handleHashChange)
+    return () => window.removeEventListener("hashchange", handleHashChange)
   }, [])
 
   const projects = [
@@ -274,7 +275,8 @@ export function Projects() {
   return (
     <motion.section
       ref={sectionRef}
-      className="py-20 overflow-hidden"
+      id="projects" // Ensure this ID is present
+      className="py-20 overflow-hidden scroll-mt-24" // Added scroll-mt-24 for proper offset
       initial="hidden"
       animate={isInView ? "visible" : "hidden"}
       variants={containerVariants}

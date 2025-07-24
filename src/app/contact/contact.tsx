@@ -30,7 +30,7 @@ export function Contact() {
   }
 
   return (
-    <section id="contact" className="py-20 bg-muted/30">
+    <section id="contact" className="py-20 bg-muted/30 scroll-mt-24">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Get In Touch</h2>
@@ -53,15 +53,15 @@ export function Contact() {
             <div className="space-y-4">
               <div className="flex items-center space-x-3">
                 <Mail className="w-5 h-5 text-primary" />
-                <span>john@example.com</span>
+                <span>paulgodes11@gmail.com</span>
               </div>
               <div className="flex items-center space-x-3">
                 <Phone className="w-5 h-5 text-primary" />
-                <span>+1 (555) 123-4567</span>
+                <span>+6396238976732 / +639777863226</span>
               </div>
               <div className="flex items-center space-x-3">
                 <MapPin className="w-5 h-5 text-primary" />
-                <span>San Francisco, CA</span>
+                <span>Pasig City, Philippines</span>
               </div>
             </div>
 
@@ -83,7 +83,11 @@ export function Contact() {
             <CardContent>
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <Input name="name" placeholder="Your Name" value={formData.name} onChange={handleChange} required />
+                  <Input name="name" 
+                  placeholder="Your Name" 
+                  value={formData.name} 
+                  onChange={handleChange} 
+                  required />
                 </div>
                 <div>
                   <Input

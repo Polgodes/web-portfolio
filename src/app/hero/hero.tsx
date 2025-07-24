@@ -72,6 +72,20 @@ export function Hero() {
     },
   }
 
+  const handleScrollToProjects = () => {
+    const projectsElement = document.getElementById("projects")
+    if (projectsElement) {
+      const elementTop = projectsElement.getBoundingClientRect().top + window.pageYOffset
+      const navHeight = 120
+      const targetPosition = elementTop - navHeight
+
+      window.scrollTo({
+        top: Math.max(0, targetPosition),
+        behavior: "smooth",
+      })
+    }
+  }
+
   return (
     <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background to-muted/20 relative overflow-hidden">
       <div className="absolute inset-0 bg-grid-pattern opacity-5" />
@@ -124,8 +138,8 @@ export function Hero() {
 
           <motion.div className="flex flex-col sm:flex-row gap-4 justify-center items-center" variants={itemVariants}>
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Button size="lg" className="text-lg px-8 py-3" asChild>
-                <Link href="#projects">View My Work</Link>
+              <Button size="lg" className="text-lg px-8 py-3" onClick={handleScrollToProjects}>
+                View My Work
               </Button>
             </motion.div>
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
@@ -164,7 +178,7 @@ export function Hero() {
         </motion.div>
 
         <motion.div
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 cursor-pointer"
           animate={{
             y: [0, -10, 0],
           }}
@@ -176,8 +190,21 @@ export function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.2 }}
+          onClick={() => {
+            const aboutElement = document.getElementById("about")
+            if (aboutElement) {
+              const elementTop = aboutElement.getBoundingClientRect().top + window.pageYOffset
+              const navHeight = 120
+              const targetPosition = elementTop - navHeight
+
+              window.scrollTo({
+                top: Math.max(0, targetPosition),
+                behavior: "smooth",
+              })
+            }
+          }}
         >
-          <ArrowDown className="w-6 h-6 text-muted-foreground" />
+          <ArrowDown className="w-6 h-6 text-muted-foreground hover:text-primary transition-colors" />
         </motion.div>
       </div>
     </section>

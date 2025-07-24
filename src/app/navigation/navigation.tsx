@@ -31,8 +31,13 @@ export function Navigation() {
   useEffect(() => {
     const handleScroll = () => {
       const sections = navItems.map((item) => item.href.substring(1))
-      // Adjust scroll position to account for floating navigation
-      const scrollPosition = window.scrollY + 120 // Increased offset for floating nav
+      const scrollPosition = window.scrollY + 150 // Increased offset for better detection
+
+      // Handle hero section first
+      if (window.scrollY < 200) {
+        setActiveSection("")
+        return
+      }
 
       for (const section of sections) {
         const element = document.getElementById(section)
@@ -42,37 +47,61 @@ export function Navigation() {
 
           if (scrollPosition >= offsetTop && scrollPosition < offsetBottom) {
             setActiveSection(`#${section}`)
-            break
+            return
           }
         }
       }
-
-      // Handle hero section (no ID, but at the top)
-      if (window.scrollY < 100) {
-        setActiveSection("")
-      }
     }
 
-    window.addEventListener("scroll", handleScroll)
+    // Debounce scroll events for better performance
+    let timeoutId: NodeJS.Timeout
+    const debouncedHandleScroll = () => {
+      clearTimeout(timeoutId)
+      timeoutId = setTimeout(handleScroll, 10)
+    }
+
+    window.addEventListener("scroll", debouncedHandleScroll)
     handleScroll() // Initial check
-    return () => window.removeEventListener("scroll", handleScroll)
+
+    return () => {
+      window.removeEventListener("scroll", debouncedHandleScroll)
+      clearTimeout(timeoutId)
+    }
   }, [navItems])
 
   const handleNavClick = (href: string) => {
     setIsOpen(false)
     const sectionId = href.substring(1)
+
+    if (sectionId === "") {
+      // Handle home/hero section
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      })
+      return
+    }
+
     const element = document.getElementById(sectionId)
 
     if (element) {
-      // Calculate the exact position accounting for the floating navigation
-      const elementTop = element.offsetTop
-      const navHeight = 100 // Approximate height of floating nav + padding
+      // Get the current scroll position and element position
+      const elementTop = element.getBoundingClientRect().top + window.pageYOffset
+      const navHeight = 120 // Account for floating nav + padding
       const targetPosition = elementTop - navHeight
 
+      // Ensure smooth scrolling is enabled
+      document.documentElement.style.scrollBehavior = "smooth"
+
       window.scrollTo({
-        top: Math.max(0, targetPosition), // Ensure we don't scroll above the page
+        top: Math.max(0, targetPosition),
         behavior: "smooth",
       })
+
+      // Reset scroll behavior after animation
+      setTimeout(() => {
+        document.documentElement.style.scrollBehavior = "auto"
+      }, 1000)
     } else {
       console.warn(`Could not find element for section: ${sectionId}`)
     }
