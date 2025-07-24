@@ -1,56 +1,55 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client"
 
 import { useState, useEffect } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
-import { ArrowDown, Github, Linkedin, Mail } from "lucide-react"
-import { easeOut } from "framer-motion";
+import { ArrowDown, Github, Linkedin, Mail, Code, Palette, Sparkles } from "lucide-react"
+import { easeOut } from "framer-motion"
 import Link from "next/link"
 
 export function Hero() {
   const [currentTextIndex, setCurrentTextIndex] = useState(0)
+  const [displayedText, setDisplayedText] = useState("")
+  const [isTyping, setIsTyping] = useState(true)
 
   const dynamicTexts = [
-    "Full-Stack Web Developer & UI/UX Specialist",
-    "I design, develop, and deploy digital solutions",
-    "Building high-impact web experiences",
-    "Turning ideas into scalable digital products",
-    "Code meets design, user meets value",
+    { text: "Full-Stack Web Developer & UI/UX Specialist", icon: Code },
+    { text: "I design, develop, and deploy digital solutions", icon: Palette },
+    { text: "Building high-impact web experiences", icon: Sparkles },
+    { text: "Turning ideas into scalable digital products", icon: Code },
+    { text: "Code meets design, user meets value", icon: Palette },
   ]
 
+
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentTextIndex((prev) => (prev + 1) % dynamicTexts.length)
-    }, 3000)
+    const currentTextObj = dynamicTexts[currentTextIndex]
+    const fullText = currentTextObj.text
+    let timeoutId: NodeJS.Timeout
 
-    return () => clearInterval(interval)
-  }, [dynamicTexts.length])
+    if (isTyping) {
+      if (displayedText.length < fullText.length) {
+        timeoutId = setTimeout(() => {
+          setDisplayedText(fullText.slice(0, displayedText.length + 1))
+        }, 50)
+      } else {
+        timeoutId = setTimeout(() => {
+          setIsTyping(false)
+        }, 2000)
+      }
+    } else {
+      if (displayedText.length > 0) {
+        timeoutId = setTimeout(() => {
+          setDisplayedText(displayedText.slice(0, -1))
+        }, 30)
+      } else {
+        setCurrentTextIndex((prev) => (prev + 1) % dynamicTexts.length)
+        setIsTyping(true)
+      }
+    }
 
-  const textVariants = {
-    enter: {
-      x: 300,
-      opacity: 0,
-    },
-    center: {
-      x: 0,
-      opacity: 1,
-      transition: {
-        type: "spring" as const,
-        stiffness: 300,
-        damping: 30,
-      },
-    },
-    exit: {
-      x: -300,
-      opacity: 0,
-      transition: {
-        type: "spring" as const, 
-        stiffness: 300, 
-        damping: 30,
-        opacity: { duration: 0.2 },
-      },
-    },
-  }
+    return () => clearTimeout(timeoutId)
+  }, [displayedText, isTyping, currentTextIndex, dynamicTexts])
 
   const containerVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -82,7 +81,6 @@ export function Hero() {
       const elementTop = projectsElement.getBoundingClientRect().top + window.pageYOffset
       const navHeight = 120
       const targetPosition = elementTop - navHeight
-
       window.scrollTo({
         top: Math.max(0, targetPosition),
         behavior: "smooth",
@@ -103,20 +101,24 @@ export function Hero() {
               Paul Adrian L. Godes
             </motion.h1>
 
-            {/* Dynamic Animated Text */}
+            {/* Typing Animation Text */}
             <div className="relative h-16 md:h-20 flex items-center justify-center overflow-hidden">
-              <AnimatePresence mode="wait">
-                <motion.p
-                  key={currentTextIndex}
-                  className="text-xl md:text-2xl text-muted-foreground absolute inset-0 flex items-center justify-center px-4"
-                  variants={textVariants}
-                  initial="enter"
-                  animate="center"
-                  exit="exit"
-                >
-                  {dynamicTexts[currentTextIndex]}
-                </motion.p>
-              </AnimatePresence>
+              <p className="text-xl md:text-2xl text-muted-foreground flex items-center justify-center px-4">
+                {(() => {
+                  const Icon = dynamicTexts[currentTextIndex].icon
+                  return <Icon className="w-5 h-5 mr-2 text-primary" />
+                })()}
+                {displayedText}
+                <motion.span
+                  className="inline-block w-0.5 h-6 md:h-8 bg-primary ml-1"
+                  animate={{ opacity: [1, 0] }}
+                  transition={{
+                    duration: 0.8,
+                    repeat: Number.POSITIVE_INFINITY,
+                    repeatType: "reverse",
+                  }}
+                />
+              </p>
             </div>
 
             {/* Progress Indicator */}
@@ -199,7 +201,6 @@ export function Hero() {
               const elementTop = aboutElement.getBoundingClientRect().top + window.pageYOffset
               const navHeight = 120
               const targetPosition = elementTop - navHeight
-
               window.scrollTo({
                 top: Math.max(0, targetPosition),
                 behavior: "smooth",
