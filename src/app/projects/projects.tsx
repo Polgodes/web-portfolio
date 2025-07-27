@@ -49,7 +49,7 @@ export function Projects() {
       title: "Real-time Queueing System",
       description:
         "A local web application designed for RTU's MIS Office to manage queues in real-time. It supports dynamic form generation and efficiently handles hundreds of concurrent users with live updates.",
-      image: "/placeholder.svg?height=400&width=600",
+      image: "/CPUScheduling.png",
       technologies: ["Next.js", "TypeScript", "Socket.IO", "Prisma", "Tailwind CSS", "Zustand"],
       liveUrl: "https://example.com",
       githubUrl: "https://github.com",
@@ -440,7 +440,7 @@ export function Projects() {
                         @keyframes accordion-up {
                           from {
                             height: var(--radix-accordion-content-height);
-                            opacity: 1;
+                            opacity: 0;
                           }
                           to {
                             height: 0;
@@ -682,17 +682,14 @@ export function Projects() {
                         </AnimatePresence>
 
                         {/* Header */}
-                        <div className="relative w-full h-48 rounded-t-lg overflow-hidden">
-                          {/* Removed the scaling animation from the image container */}
-                          <div>
-                            <Image
-                              src={project.image || "/placeholder.svg"}
-                              alt={project.title}
-                              fill
-                              className="object-cover transition-all duration-500 group-hover:brightness-110"
-                              priority
-                            />
-                          </div>
+                        <div className="relative w-full h-48 overflow-hidden">
+                          <Image
+                            src={project.image || "/placeholder.svg"}
+                            alt={project.title}
+                            fill
+                            className="object-cover transition-all duration-500 group-hover:brightness-110"
+                            priority
+                          />
                           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                           <motion.div
                             className="absolute bottom-4 left-4 right-4 z-10"
