@@ -6,8 +6,8 @@ Welcome to my personal portfolio! I am **Adrian**, a passionate and tech-savvy C
 
 ## 🧑‍💻 About Me
 
-- **Name:** Adrian [Your Last Name]  
-- **Education:** Bachelor’s in Computer Science, Pamantasan ng Lungsod ng Pasig  
+- **Name:** adrian.dev 
+- **Education:** Bachelor’s in Computer Science
 - **Skills:**  
   - Frontend: HTML, CSS, JavaScript, React, Next.js, Tailwind CSS  
   - Backend: Node.js, Express, MongoDB  
@@ -33,7 +33,7 @@ Here are some of my key projects:
 
 - **Email:** [adrian.dev.2025@gmail.com](mailto:adrian.dev.2025@gmail.com)
 - **LinkedIn:** [Paul Adrian Godes](https://www.linkedin.com/in/paul-adrian-godes)
-- **GitHub:** [Your GitHub](https://github.com/polgodes)
+- **GitHub:** [GitHub.Polgodes](https://github.com/polgodes)
 
 ---
 
