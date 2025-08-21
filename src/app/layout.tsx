@@ -6,6 +6,7 @@ import { Navigation } from "@/app/navigation/navigation"
 import { Footer } from "@/app/footer/footer"
 import { ScrollToTopButton } from "@/components/scroll-to-top-button"
 import { Poppins } from "next/font/google"
+import { Toaster } from 'sonner';
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -42,6 +43,7 @@ export default function RootLayout({
             <Footer />
             <ScrollToTopButton />
           </div>
+          <Toaster position="bottom-right" richColors />
         </ThemeProvider>
       </body>
     </html>

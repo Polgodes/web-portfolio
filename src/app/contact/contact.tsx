@@ -6,20 +6,43 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { Mail, MapPin, Phone } from "lucide-react"
+import { Mail, MapPin, Phone, Loader2} from "lucide-react"
 import { useState } from "react"
+import { toast } from "sonner"
 
 export function Contact() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    subject: "",
     message: "",
   })
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [loading, setLoading] = useState(false)
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Handle form submission here
-    console.log("Form submitted:", formData)
+    setLoading(true)
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      })
+
+      if (res.ok) {
+        toast.success("Message sent successfully!")
+        setFormData({ name: "", email: "", subject: "", message: "" })
+      } else {
+        toast.error("Failed to send message. Please try again.")
+      }
+    } catch (err) {
+      console.error(err)
+      toast.error("⚠️ Something went wrong.")
+    } finally {
+      setLoading(false)
+    }
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -28,6 +51,8 @@ export function Contact() {
       [e.target.name]: e.target.value,
     }))
   }
+
+
 
   return (
     <section id="contact" className="py-20 bg-muted/30 scroll-mt-24">
@@ -100,6 +125,15 @@ export function Contact() {
                   />
                 </div>
                 <div>
+                  <Input
+                    name="subject"
+                    placeholder="Subject"
+                    value={formData.subject}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+                <div>
                   <Textarea
                     name="message"
                     placeholder="Your Message"
@@ -109,8 +143,15 @@ export function Contact() {
                     required
                   />
                 </div>
-                <Button type="submit" className="w-full">
-                  Send Message
+                <Button type="submit" className="w-full" disabled={loading}>
+                  {loading ? (
+                    <div className="flex items-center gap-2">
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      Sending...
+                    </div>
+                  ) : (
+                    "Send Message"
+                  )}
                 </Button>
               </form>
             </CardContent>
