@@ -57,7 +57,7 @@ export function Contact() {
               </div>
               <div className="flex items-center space-x-3">
                 <Phone className="w-5 h-5 text-primary" />
-                <span>+6396238976732 / +639777863226</span>
+                <span>+639623876732 / +639777863226</span>
               </div>
               <div className="flex items-center space-x-3">
                 <MapPin className="w-5 h-5 text-primary" />
@@ -73,7 +73,7 @@ export function Contact() {
             </div>
           </div>
 
-          <Card>
+          <Card className="p-6">
             <CardHeader>
               <CardTitle>Send me a message</CardTitle>
               <CardDescription>

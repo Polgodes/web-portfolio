@@ -3,8 +3,8 @@
 import { useState, useEffect, useMemo } from "react"
 import { motion, useScroll, useMotionValueEvent } from "framer-motion"
 import { Button } from "@/components/ui/button"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { Menu, Moon, Sun, Sparkles } from "lucide-react"
+import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet"
+import { Menu, Moon, Sun, ChevronRight } from "lucide-react"
 import { useTheme } from "next-themes"
 
 export function Navigation() {
@@ -123,18 +123,27 @@ export function Navigation() {
           }`}
         >
           <div className="flex items-center justify-between">
-            {/* Logo with sparkle effect */}
+            {/* Terminal Effect*/}
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <button
                 onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
                 className="flex items-center gap-2 text-xl font-bold tracking-tight hover:text-primary transition-colors"
               >
-                <motion.div
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 8, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
-                >
-                  <Sparkles className="h-5 w-5 text-primary" />
+                <motion.div className="flex items-center space-x-1">
+                  {/* Chevron prompt */}
+                  <ChevronRight className="h-5 w-5 text-primary" />
+
+                  {/* Blinking underscore cursor */}
+                  <motion.span
+                    className="text-primary text-lg font-mono"
+                    animate={{ opacity: [1, 0, 1] }}
+                    transition={{ duration: 0.8, repeat: Infinity, ease: "linear" }}
+                  >
+                    _
+                  </motion.span>
                 </motion.div>
+
+                {/* Brand name */}
                 <span className="bg-gradient-to-r from-foreground via-primary to-foreground bg-clip-text text-transparent">
                   adrian.dev
                 </span>
@@ -199,17 +208,32 @@ export function Navigation() {
                       </Button>
                     </motion.div>
                   </SheetTrigger>
-                  <SheetContent side="right" className="w-80 bg-background/95 backdrop-blur-xl">
-                    <div className="flex flex-col space-y-6 mt-8">
+                  <SheetContent side="right" className="w-80 bg-background/95 backdrop-blur-xl p-0 overflow-hidden">
+                    <motion.div
+                      initial={{ x: "100%", opacity: 0 }}
+                      animate={{ x: 0, opacity: 1 }}
+                      exit={{ x: "100%", opacity: 0 }}
+                      transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                      className="h-full flex flex-col space-y-6 mt-8"
+                    >
                       <div className="text-center">
                         <motion.div
                           initial={{ scale: 0 }}
                           animate={{ scale: 1 }}
                           transition={{ delay: 0.2, type: "spring" }}
+                          className="flex items-center justify-center space-x-1 mb-2"
                         >
-                          <Sparkles className="h-8 w-8 text-primary mx-auto mb-2" />
+                          <ChevronRight className="h-8 w-8 text-primary" />
+                          <motion.span
+                            className="text-primary text-2xl font-mono"
+                            animate={{ opacity: [1, 0, 1] }}
+                            transition={{ duration: 0.8, repeat: Infinity, ease: "linear" }}
+                          >
+                            _
+                          </motion.span>
                         </motion.div>
-                        <h2 className="text-xl font-bold">Menu</h2>
+
+                        <SheetTitle className="text-xl font-bold">Menu</SheetTitle>
                       </div>
 
                       <div className="space-y-2">
@@ -233,7 +257,7 @@ export function Navigation() {
                           </motion.div>
                         ))}
                       </div>
-                    </div>
+                    </motion.div>
                   </SheetContent>
                 </Sheet>
               </div>

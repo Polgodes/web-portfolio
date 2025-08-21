@@ -1,6 +1,6 @@
 "use client"
 
-import { Github, Linkedin, Mail, Twitter } from "lucide-react"
+import { Github, Linkedin, Mail} from "lucide-react"
 import Link from "next/link"
 
 export function Footer() {
@@ -75,15 +75,6 @@ export function Footer() {
               >
                 <Linkedin className="w-5 h-5" />
                 <span className="sr-only">LinkedIn</span>
-              </Link>
-              <Link
-                href="https://twitter.com"
-                className="text-muted-foreground hover:text-foreground transition-colors"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Twitter className="w-5 h-5" />
-                <span className="sr-only">Twitter</span>
               </Link>
               <Link
                 href="mailto:paulgodes11@gmail.com"

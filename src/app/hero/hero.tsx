@@ -4,7 +4,7 @@
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
-import { ArrowDown, Github, Linkedin, Mail, Code, Palette, Sparkles } from "lucide-react"
+import { ArrowDown, Github, Linkedin, Mail, Code, Palette, Sparkles, Loader2, Check } from "lucide-react"
 import { easeOut } from "framer-motion"
 import Link from "next/link"
 
@@ -12,6 +12,8 @@ export function Hero() {
   const [currentTextIndex, setCurrentTextIndex] = useState(0)
   const [displayedText, setDisplayedText] = useState("")
   const [isTyping, setIsTyping] = useState(true)
+  const [downloading, setDownloading] = useState(false)
+  const [completed, setCompleted] = useState(false)
 
   const dynamicTexts = [
     { text: "Full-Stack Web Developer & UI/UX Specialist", icon: Code },
@@ -23,6 +25,7 @@ export function Hero() {
 
 
   useEffect(() => {
+
     const currentTextObj = dynamicTexts[currentTextIndex]
     const fullText = currentTextObj.text
     let timeoutId: NodeJS.Timeout
@@ -143,14 +146,56 @@ export function Hero() {
           </motion.p>
 
           <motion.div className="flex flex-col sm:flex-row gap-4 justify-center items-center" variants={itemVariants}>
+            {/* View Work button */}
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Button size="lg" className="text-lg px-8 py-3" onClick={handleScrollToProjects}>
                 View My Work
               </Button>
             </motion.div>
+
+            {/* Download Resume button with skeleton animation */}
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Button variant="outline" size="lg" className="text-lg px-8 py-3 bg-transparent">
-                Download Resume
+              <Button
+                variant="outline"
+                size="lg"
+                className="text-lg px-8 py-3 bg-transparent flex items-center gap-2"
+                onClick={() => {
+                  // Start download
+                  const link = document.createElement("a")
+                  link.href = "/resume/adrain.dev-resume.pdf"
+                  link.download = "adrian.dev-resume.pdf"
+                  document.body.appendChild(link)
+                  link.click()
+                  document.body.removeChild(link)
+
+                  // Animate skeleton state
+                  setDownloading(true)
+                  setCompleted(false)
+
+                  setTimeout(() => {
+                    setDownloading(false)
+                    setCompleted(true)
+
+                    setTimeout(() => {
+                      setCompleted(false)
+                    }, 2000)
+                  }, 2000)
+                }}
+                disabled={downloading}
+              >
+                {downloading ? (
+                  <>
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                    Downloading...
+                  </>
+                ) : completed ? (
+                  <>
+                    <Check className="w-5 h-5 text-green-500" />
+                    Download Complete
+                  </>
+                ) : (
+                  "Download Resume"
+                )}
               </Button>
             </motion.div>
           </motion.div>
@@ -184,7 +229,7 @@ export function Hero() {
         </motion.div>
 
         <motion.div
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 cursor-pointer"
+          className="absolute pt-8 left-1/2 transform -translate-x-1/2 cursor-pointer"
           initial={{ opacity: 0 }}
           animate={{
             y: [0, -10, 0],
@@ -208,7 +253,7 @@ export function Hero() {
             }
           }}
         >
-          <ArrowDown className="w-6 h-6 text-muted-foreground hover:text-primary transition-colors" />
+          <ArrowDown className="w-8 h-8 text-muted-foreground hover:text-primary transition-colors" />
         </motion.div>
       </div>
     </section>
