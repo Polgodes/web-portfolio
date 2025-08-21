@@ -25,23 +25,15 @@ Here are some of my key projects:
    - Description: A queue management system designed to streamline processes in IT services.  
    - Tech Stack: React, Node.js, MongoDB  
 
-2. **[Project Name]**  
-   - Description: [Brief description of the project]  
-   - Tech Stack: [Technologies used]  
-
-3. **[Project Name]**  
-   - Description: [Brief description of the project]  
-   - Tech Stack: [Technologies used]  
-
-> More projects available in the [Projects Section](link-to-your-projects-page).
+> More projects available in the [adrian.dev](https://adrian-dev.vercel.app/)
 
 ---
 
 ## 📫 Contact Me
 
-- **Email:** [your-email@example.com]  
-- **LinkedIn:** [Your LinkedIn URL]  
-- **GitHub:** [Your GitHub URL]  
+- **Email:** [adrian.dev.2025@gmail.com](mailto:adrian.dev.2025@gmail.com)
+- **LinkedIn:** [Paul Adrian Godes](https://www.linkedin.com/in/paul-adrian-godes)
+- **GitHub:** [Your GitHub](https://github.com/polgodes)
 
 ---
 
