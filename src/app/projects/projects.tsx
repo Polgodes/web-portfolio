@@ -6,7 +6,18 @@ import { Badge } from "@/components/ui/badge"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { motion, AnimatePresence, useInView, type Variants, type Transition } from "framer-motion"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
-import { ExternalLink, Github, AlertCircle, CheckCircle2, User2, Sparkles, Eye, X } from "lucide-react"
+import {
+  ExternalLink,
+  Github,
+  AlertCircle,
+  CheckCircle2,
+  User2,
+  Sparkles,
+  Eye,
+  X,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { useState, useRef, useEffect } from "react"
@@ -15,6 +26,8 @@ export function Projects() {
   const [hoveredProject, setHoveredProject] = useState<string | null>(null)
   const [openAccordions, setOpenAccordions] = useState<Record<string, string>>({})
   const [openModal, setOpenModal] = useState<string | null>(null)
+  const [openScreenshotModal, setOpenScreenshotModal] = useState<string | null>(null)
+  const [currentScreenshotIndex, setCurrentScreenshotIndex] = useState(0)
 
   const sectionRef = useRef(null)
   const featuredRef = useRef(null)
@@ -49,7 +62,26 @@ export function Projects() {
       title: "Real-time Queueing System",
       description:
         "A local web application designed for RTU's MIS Office to manage queues in real-time. It supports dynamic form generation and efficiently handles hundreds of concurrent users with live updates.",
-      image: "/CPUScheduling.png",
+      image: "/rtu_queuing_system/window-queue.png",
+      screenshots: [
+        { src: "/rtu_queuing_system/window-queue.png", name: "Queue Display Window" },
+        { src: "/rtu_queuing_system/admin-auth.png", name: "Admin Authentication" },
+        { src: "/rtu_queuing_system/admin-dashboard.png", name: "Admin Dashboard" },
+        { src: "/rtu_queuing_system/admin-processed.png", name: "Admin - Processed Queue" },
+        { src: "/rtu_queuing_system/admin-processing.png", name: "Admin - Processing Queue" },
+        { src: "/rtu_queuing_system/form.png", name: "Registration Form - Step 1" },
+        { src: "/rtu_queuing_system/form2.png", name: "Registration Form - Step 2" },
+        { src: "/rtu_queuing_system/form3.png", name: "Registration Form - Step 3" },
+        { src: "/rtu_queuing_system/queue-number.png", name: "Queue Number Display" },
+        { src: "/rtu_queuing_system/super-admin-dashboard.png", name: "Super Admin Dashboard" },
+        { src: "/rtu_queuing_system/super-admin-stats.png", name: "Super Admin - Statistics" },
+        { src: "/rtu_queuing_system/super-admin-stats2.png", name: "Super Admin - Detailed Stats" },
+        { src: "/rtu_queuing_system/super-admin-history.png", name: "Super Admin - History" },
+        { src: "/rtu_queuing_system/super-admin-user-management.png", name: "Super Admin - User Management" },
+        { src: "/rtu_queuing_system/super-admin-system-settings.png", name: "Super Admin - System Settings" },
+        { src: "/rtu_queuing_system/super-admin-concern-management.png", name: "Super Admin - Concern Management" },
+
+      ],
       technologies: ["Next.js", "TypeScript", "Socket.IO", "Prisma", "Tailwind CSS", "Zustand"],
       liveUrl: "https://example.com",
       githubUrl: "https://github.com",
@@ -78,6 +110,7 @@ export function Projects() {
       description:
         "A thesis project that serves to predict generalized anxiety levels amongst the Pamantasan ng Lungsod ng Pasig students.",
       image: "/placeholder.svg?height=400&width=600",
+      screenshots: [{ src: "/placeholder.svg?height=400&width=600", name: "Placeholder" }],
       technologies: ["Laravel", "PHP", "SQL", "Python", "Flask", "Chart.js", "Tailwind CSS"],
       liveUrl: "https://example.com",
       githubUrl: "https://github.com",
@@ -106,6 +139,7 @@ export function Projects() {
       description:
         "A browser-based simulator that visualizes the execution of popular CPU scheduling algorithms like FCFS, SJF, and SRTF in real-time.",
       image: "/CPUScheduling.png",
+      screenshots: [{ src: "/CPUScheduling.png", name: "CPU Scheduling Simulator" }],
       technologies: ["Vue.js", "JavaScript", "Chart.js", "Tailwind CSS"],
       liveUrl: "https://chupurplejr.vercel.app/",
       githubUrl: "https://github.com/hyemu/ChuPurpleJr",
@@ -133,6 +167,7 @@ export function Projects() {
       title: "Chuupurple Component Library",
       description: "A comprehensive Vue.js component library with modern design patterns and accessibility features.",
       image: "/chuupurple.png",
+      screenshots: [{ src: "/chuupurple.png", name: "Chuupurple Component Library" }],
       technologies: ["Vue.js", "Tailwind CSS", "HTML", "CSS", "JavaScript", "WebPack", "Node.js"],
       liveUrl: "https://chuupurple.vercel.app/",
       githubUrl: "https://github.com/Brhylle/chuupurple",
@@ -161,39 +196,60 @@ export function Projects() {
   const featuredProjects = projects.filter((project) => project.featured)
   const otherProjects = projects.filter((project) => !project.featured)
 
-  // Animation variants with proper typing
+  const nextScreenshot = () => {
+    const project = projects.find((p) => p.title === openScreenshotModal)
+    if (project) {
+      setCurrentScreenshotIndex((prev) => (prev === project.screenshots.length - 1 ? 0 : prev + 1))
+    }
+  }
+
+  const prevScreenshot = () => {
+    const project = projects.find((p) => p.title === openScreenshotModal)
+    if (project) {
+      setCurrentScreenshotIndex((prev) => (prev === 0 ? project.screenshots.length - 1 : prev - 1))
+    }
+  }
+
+  const openScreenshots = (projectTitle: string) => {
+    setOpenScreenshotModal(projectTitle)
+    setCurrentScreenshotIndex(0)
+  }
+
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.1,
+        staggerChildren: 0.15,
+        delayChildren: 0.05,
+        ease: [0.16, 1, 0.3, 1], // Enhanced easing curve
       },
     },
   }
 
   const itemVariants: Variants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: [0.25, 0.46, 0.45, 0.94],
-      } as Transition,
-    },
-  }
-
-  const cardVariants: Variants = {
-    hidden: { opacity: 0, y: 30, scale: 0.95 },
+    hidden: { opacity: 0, y: 60, scale: 0.95 },
     visible: {
       opacity: 1,
       y: 0,
       scale: 1,
       transition: {
-        duration: 0.5,
-        ease: [0.25, 0.46, 0.45, 0.94],
+        duration: 0.8,
+        ease: [0.16, 1, 0.3, 1], // Smoother spring-like easing
+      } as Transition,
+    },
+  }
+
+  const cardVariants: Variants = {
+    hidden: { opacity: 0, y: 40, scale: 0.9, rotateX: 15 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      rotateX: 0,
+      transition: {
+        duration: 0.7,
+        ease: [0.16, 1, 0.3, 1],
       } as Transition,
     },
   }
@@ -201,40 +257,44 @@ export function Projects() {
   const hoverOverlayVariants: Variants = {
     hidden: {
       opacity: 0,
-      scale: 0.8,
+      scale: 0.85,
       backdropFilter: "blur(0px)",
+      rotateY: -10,
     },
     visible: {
       opacity: 1,
       scale: 1,
-      backdropFilter: "blur(4px)",
+      backdropFilter: "blur(8px)",
+      rotateY: 0,
       transition: {
-        duration: 0.3,
-        ease: [0.25, 0.46, 0.45, 0.94],
+        duration: 0.4,
+        ease: [0.16, 1, 0.3, 1],
       } as Transition,
     },
   }
 
   const sparkleVariants: Variants = {
-    hidden: { scale: 0, rotate: 0 },
+    hidden: { scale: 0, rotate: 0, opacity: 0 },
     visible: {
-      scale: [0, 1.2, 1],
-      rotate: [0, 180, 360],
+      scale: [0, 1.3, 1],
+      rotate: [0, 270, 360],
+      opacity: [0, 1, 0.8],
       transition: {
-        duration: 0.6,
-        ease: [0.25, 0.46, 0.45, 0.94],
+        duration: 0.8,
+        ease: [0.16, 1, 0.3, 1],
       } as Transition,
     },
   }
 
   const badgeVariants: Variants = {
-    hidden: { opacity: 0, scale: 0.8 },
+    hidden: { opacity: 0, scale: 0.7, y: 10 },
     visible: {
       opacity: 1,
       scale: 1,
+      y: 0,
       transition: {
-        duration: 0.3,
-        ease: [0.25, 0.46, 0.45, 0.94],
+        duration: 0.4,
+        ease: [0.16, 1, 0.3, 1],
       } as Transition,
     },
   }
@@ -242,25 +302,28 @@ export function Projects() {
   const modalVariants: Variants = {
     hidden: {
       opacity: 0,
-      scale: 0.8,
-      y: 50,
+      scale: 0.85,
+      y: 60,
+      rotateX: 15,
     },
     visible: {
       opacity: 1,
       scale: 1,
       y: 0,
+      rotateX: 0,
       transition: {
-        duration: 0.3,
-        ease: [0.25, 0.46, 0.45, 0.94],
+        duration: 0.5,
+        ease: [0.16, 1, 0.3, 1],
       } as Transition,
     },
     exit: {
       opacity: 0,
-      scale: 0.8,
-      y: 50,
+      scale: 0.85,
+      y: 60,
+      rotateX: -15,
       transition: {
-        duration: 0.2,
-        ease: [0.25, 0.46, 0.45, 0.94],
+        duration: 0.3,
+        ease: [0.16, 1, 0.3, 1],
       } as Transition,
     },
   }
@@ -363,19 +426,9 @@ export function Projects() {
                         transition={{ delay: 0.4, duration: 0.5 }}
                       >
                         <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                          <Button asChild>
-                            <Link href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-                              <ExternalLink className="w-4 h-4 mr-2" />
-                              Live Demo
-                            </Link>
-                          </Button>
-                        </motion.div>
-                        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                          <Button variant="secondary" asChild>
-                            <Link href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-                              <Github className="w-4 h-4 mr-2" />
-                              View Code
-                            </Link>
+                          <Button onClick={() => openScreenshots(project.title)}>
+                            <Eye className="w-4 h-4 mr-2" />
+                            See Screenshots
                           </Button>
                         </motion.div>
                       </motion.div>
@@ -414,52 +467,64 @@ export function Projects() {
                       </motion.div>
                     </motion.div>
 
-                    {/* Expandable Sections with Custom Styling for Smooth Animation */}
                     <motion.div
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.6, duration: 0.5 }}
+                      transition={{ delay: 0.6, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                     >
                       <style jsx global>{`
                         .smooth-accordion [data-state="open"] > div[data-accordion-content] {
-                          animation: accordion-down 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                          animation: accordion-down 0.6s cubic-bezier(0.16, 1, 0.3, 1);
                         }
                         .smooth-accordion [data-state="closed"] > div[data-accordion-content] {
-                          animation: accordion-up 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                          animation: accordion-up 0.5s cubic-bezier(0.16, 1, 0.3, 1);
                         }
                         @keyframes accordion-down {
                           from {
                             height: 0;
                             opacity: 0;
+                            transform: translateY(-10px);
                           }
                           to {
                             height: var(--radix-accordion-content-height);
                             opacity: 1;
+                            transform: translateY(0);
                           }
                         }
                         @keyframes accordion-up {
                           from {
                             height: var(--radix-accordion-content-height);
-                            opacity: 0;
+                            opacity: 1;
+                            transform: translateY(0);
                           }
                           to {
                             height: 0;
                             opacity: 0;
+                            transform: translateY(-10px);
                           }
                         }
                         .smooth-accordion [data-accordion-trigger] {
-                          transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                          transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+                          transform-origin: center;
                         }
                         .smooth-accordion [data-accordion-trigger]:hover {
                           background-color: hsl(var(--accent));
                           color: hsl(var(--accent-foreground));
+                          transform: translateY(-1px);
+                          box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+                        }
+                        .smooth-accordion [data-accordion-trigger][data-state="open"] {
+                          background-color: hsl(var(--accent)/0.5);
                         }
                         .smooth-accordion [data-accordion-trigger][data-state="open"] svg {
-                          transform: rotate(180deg);
-                          transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                          transform: rotate(180deg) scale(1.1);
+                          transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
                         }
                         .smooth-accordion [data-accordion-trigger] svg {
-                          transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                          transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+                        }
+                        .smooth-accordion [data-accordion-content] {
+                          overflow: hidden;
                         }
                       `}</style>
                       <Accordion
@@ -470,7 +535,7 @@ export function Projects() {
                         onValueChange={(value) => handleAccordionChange(project.title, value)}
                       >
                         <AccordionItem value="problem" className="border-b border-border/50">
-                          <AccordionTrigger className="hover:no-underline py-4 px-4 rounded-lg transition-all duration-300">
+                          <AccordionTrigger className="hover:no-underline py-4 px-4 rounded-lg transition-all duration-400">
                             <div className="flex items-center gap-3 text-left">
                               <AlertCircle className="w-5 h-5 text-red-500 flex-shrink-0" />
                               <span className="font-semibold">The Problem</span>
@@ -478,9 +543,9 @@ export function Projects() {
                           </AccordionTrigger>
                           <AccordionContent className="px-4 pb-4">
                             <motion.div
-                              initial={{ opacity: 0, y: 10 }}
+                              initial={{ opacity: 0, y: 15 }}
                               animate={{ opacity: 1, y: 0 }}
-                              transition={{ duration: 0.3, delay: 0.1 }}
+                              transition={{ duration: 0.4, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
                             >
                               <p className="text-muted-foreground leading-relaxed mb-4">{project.problem}</p>
                               <div>
@@ -489,9 +554,9 @@ export function Projects() {
                                   {project.challenges.map((challenge, idx) => (
                                     <motion.li
                                       key={idx}
-                                      initial={{ opacity: 0, x: -10 }}
+                                      initial={{ opacity: 0, x: -15 }}
                                       animate={{ opacity: 1, x: 0 }}
-                                      transition={{ delay: 0.2 + idx * 0.1, duration: 0.3 }}
+                                      transition={{ delay: 0.2 + idx * 0.1, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                                     >
                                       {challenge}
                                     </motion.li>
@@ -503,7 +568,7 @@ export function Projects() {
                         </AccordionItem>
 
                         <AccordionItem value="solution" className="border-b border-border/50">
-                          <AccordionTrigger className="hover:no-underline py-4 px-4 rounded-lg transition-all duration-300">
+                          <AccordionTrigger className="hover:no-underline py-4 px-4 rounded-lg transition-all duration-400">
                             <div className="flex items-center gap-3 text-left">
                               <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0" />
                               <span className="font-semibold">The Solution</span>
@@ -511,9 +576,9 @@ export function Projects() {
                           </AccordionTrigger>
                           <AccordionContent className="px-4 pb-4">
                             <motion.div
-                              initial={{ opacity: 0, y: 10 }}
+                              initial={{ opacity: 0, y: 15 }}
                               animate={{ opacity: 1, y: 0 }}
-                              transition={{ duration: 0.3, delay: 0.1 }}
+                              transition={{ duration: 0.4, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
                             >
                               <p className="text-muted-foreground leading-relaxed mb-4">{project.solution}</p>
                               <div>
@@ -522,9 +587,9 @@ export function Projects() {
                                   {project.results.map((result, idx) => (
                                     <motion.li
                                       key={idx}
-                                      initial={{ opacity: 0, x: -10 }}
+                                      initial={{ opacity: 0, x: -15 }}
                                       animate={{ opacity: 1, x: 0 }}
-                                      transition={{ delay: 0.2 + idx * 0.1, duration: 0.3 }}
+                                      transition={{ delay: 0.2 + idx * 0.1, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                                     >
                                       {result}
                                     </motion.li>
@@ -536,7 +601,7 @@ export function Projects() {
                         </AccordionItem>
 
                         <AccordionItem value="contribution" className="border-b-0">
-                          <AccordionTrigger className="hover:no-underline py-4 px-4 rounded-lg transition-all duration-300">
+                          <AccordionTrigger className="hover:no-underline py-4 px-4 rounded-lg transition-all duration-400">
                             <div className="flex items-center gap-3 text-left">
                               <User2 className="w-5 h-5 text-blue-500 flex-shrink-0" />
                               <span className="font-semibold">My Contribution</span>
@@ -544,9 +609,9 @@ export function Projects() {
                           </AccordionTrigger>
                           <AccordionContent className="px-4 pb-4">
                             <motion.div
-                              initial={{ opacity: 0, y: 10 }}
+                              initial={{ opacity: 0, y: 15 }}
                               animate={{ opacity: 1, y: 0 }}
-                              transition={{ duration: 0.3, delay: 0.1 }}
+                              transition={{ duration: 0.4, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
                             >
                               <p className="text-muted-foreground leading-relaxed">{project.contribution}</p>
                             </motion.div>
@@ -953,6 +1018,149 @@ export function Projects() {
             </motion.div>
           </motion.div>
         )}
+
+        <AnimatePresence>
+          {openScreenshotModal && (
+            <Dialog open={!!openScreenshotModal} onOpenChange={() => setOpenScreenshotModal(null)}>
+              <DialogContent className="w-[95vw] max-w-[95vw] h-[90vh] max-h-[90vh] sm:w-[90vw] sm:max-w-[90vw] md:w-[85vw] md:max-w-6xl lg:w-[80vw] lg:max-w-7xl overflow-hidden p-0 gap-0">
+                {/* Fixed Exit Button */}
+                <motion.button
+                  className="fixed top-4 right-4 z-50 bg-background/80 backdrop-blur-sm border border-border rounded-full p-2 shadow-lg hover:bg-background transition-colors"
+                  onClick={() => setOpenScreenshotModal(null)}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  initial={{ opacity: 0, scale: 0 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <X className="w-5 h-5" />
+                </motion.button>
+
+                <motion.div
+                  className="h-full flex flex-col"
+                  variants={modalVariants}
+                  initial="hidden"
+                  animate="visible"
+                  exit="exit"
+                >
+                  <div className="p-4 sm:p-6 border-b">
+                    <DialogHeader>
+                      <DialogTitle className="text-xl sm:text-2xl lg:text-3xl font-bold pr-12">
+                        {openScreenshotModal} - Screenshots
+                      </DialogTitle>
+                    </DialogHeader>
+                  </div>
+
+                  <div className="flex-1 flex items-center justify-center relative bg-muted/20">
+                    {(() => {
+                      const project = projects.find((p) => p.title === openScreenshotModal)
+                      if (!project) return null
+
+                      return (
+                        <>
+                          {/* Navigation Buttons */}
+                          {project.screenshots.length > 1 && (
+                            <>
+                              <motion.button
+                                className="absolute left-4 z-10 bg-background/80 backdrop-blur-sm border border-border rounded-full p-3 shadow-lg hover:bg-background transition-colors"
+                                onClick={prevScreenshot}
+                                whileHover={{ scale: 1.1 }}
+                                whileTap={{ scale: 0.9 }}
+                              >
+                                <ChevronLeft className="w-6 h-6" />
+                              </motion.button>
+                              <motion.button
+                                className="absolute right-4 z-10 bg-background/80 backdrop-blur-sm border border-border rounded-full p-3 shadow-lg hover:bg-background transition-colors"
+                                onClick={nextScreenshot}
+                                whileHover={{ scale: 1.1 }}
+                                whileTap={{ scale: 0.9 }}
+                              >
+                                <ChevronRight className="w-6 h-6" />
+                              </motion.button>
+                            </>
+                          )}
+
+                          <motion.div
+                            key={currentScreenshotIndex}
+                            className="max-w-full max-h-full p-4"
+                            initial={{ opacity: 0, scale: 0.95, rotateY: 10 }}
+                            animate={{ opacity: 1, scale: 1, rotateY: 0 }}
+                            exit={{ opacity: 0, scale: 0.95, rotateY: -10 }}
+                            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                          >
+                            <div className="text-center">
+                              <Image
+                                src={project.screenshots[currentScreenshotIndex]?.src || "/placeholder.svg"}
+                                alt={`${project.title} screenshot ${currentScreenshotIndex + 1}`}
+                                width={1200}
+                                height={800}
+                                className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
+                                priority
+                              />
+                              <div className="mt-4 px-4">
+                                <motion.h3
+                                  className="text-lg font-semibold text-foreground"
+                                  initial={{ opacity: 0, y: 10 }}
+                                  animate={{ opacity: 1, y: 0 }}
+                                  transition={{ delay: 0.2, duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                                >
+                                  {project.screenshots[currentScreenshotIndex]?.name}
+                                </motion.h3>
+                              </div>
+                            </div>
+                          </motion.div>
+                        </>
+                      )
+                    })()}
+                  </div>
+
+                  {/* Screenshot Counter and Thumbnails */}
+                  {(() => {
+                    const project = projects.find((p) => p.title === openScreenshotModal)
+                    if (!project || project.screenshots.length <= 1) return null
+
+                    return (
+                      <div className="p-4 border-t bg-background/50">
+                        <div className="text-center mb-4">
+                          <span className="text-sm text-muted-foreground">
+                            {currentScreenshotIndex + 1} of {project.screenshots.length}
+                          </span>
+                        </div>
+
+                        <div className="flex justify-center gap-2 overflow-x-auto pb-2">
+                          {project.screenshots.map((screenshot, index) => (
+                            <motion.button
+                              key={index}
+                              className={`flex-shrink-0 w-16 h-12 rounded border-2 overflow-hidden transition-all duration-300 ${
+                                index === currentScreenshotIndex
+                                  ? "border-primary ring-2 ring-primary/20 shadow-lg"
+                                  : "border-border hover:border-primary/50"
+                              }`}
+                              onClick={() => setCurrentScreenshotIndex(index)}
+                              whileHover={{ scale: 1.08, y: -2 }}
+                              whileTap={{ scale: 0.95 }}
+                              transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                              title={screenshot.name}
+                            >
+                              <Image
+                                src={screenshot.src || "/placeholder.svg"}
+                                alt={`Thumbnail ${index + 1}`}
+                                width={64}
+                                height={48}
+                                className="w-full h-full object-cover transition-transform duration-300"
+                              />
+                            </motion.button>
+                          ))}
+                        </div>
+                      </div>
+                    )
+                  })()}
+                </motion.div>
+              </DialogContent>
+            </Dialog>
+          )}
+        </AnimatePresence>
       </div>
     </motion.section>
   )
