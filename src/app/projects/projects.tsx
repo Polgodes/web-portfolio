@@ -69,18 +69,17 @@ export function Projects() {
         { src: "/rtu_queuing_system/admin-dashboard.png", name: "Admin Dashboard" },
         { src: "/rtu_queuing_system/admin-processed.png", name: "Admin - Processed Queue" },
         { src: "/rtu_queuing_system/admin-processing.png", name: "Admin - Processing Queue" },
-        { src: "/rtu_queuing_system/form.png", name: "Registration Form - Step 1" },
+        { src: "/rtu_queuing_system/form1.png", name: "Registration Form - Step 1" },
         { src: "/rtu_queuing_system/form2.png", name: "Registration Form - Step 2" },
         { src: "/rtu_queuing_system/form3.png", name: "Registration Form - Step 3" },
         { src: "/rtu_queuing_system/queue-number.png", name: "Queue Number Display" },
+        { src: "/rtu_queuing_system/super-admin-concern-management.png", name: "Super Admin - Concern Management" },
         { src: "/rtu_queuing_system/super-admin-dashboard.png", name: "Super Admin Dashboard" },
+        { src: "/rtu_queuing_system/super-admin-history.png", name: "Super Admin - History" },
         { src: "/rtu_queuing_system/super-admin-stats.png", name: "Super Admin - Statistics" },
         { src: "/rtu_queuing_system/super-admin-stats2.png", name: "Super Admin - Detailed Stats" },
-        { src: "/rtu_queuing_system/super-admin-history.png", name: "Super Admin - History" },
+        { src: "/rtu_queuing_system/super-admin-user-logs.png", name: "Super Admin - User Logs" },
         { src: "/rtu_queuing_system/super-admin-user-management.png", name: "Super Admin - User Management" },
-        { src: "/rtu_queuing_system/super-admin-system-settings.png", name: "Super Admin - System Settings" },
-        { src: "/rtu_queuing_system/super-admin-concern-management.png", name: "Super Admin - Concern Management" },
-
       ],
       technologies: ["Next.js", "TypeScript", "Socket.IO", "Prisma", "Tailwind CSS", "Zustand"],
       liveUrl: "https://example.com",
@@ -109,8 +108,17 @@ export function Projects() {
       title: "Predicting Generalized Anxiety Levels",
       description:
         "A thesis project that serves to predict generalized anxiety levels amongst the Pamantasan ng Lungsod ng Pasig students.",
-      image: "/placeholder.svg?height=400&width=600",
-      screenshots: [{ src: "/placeholder.svg?height=400&width=600", name: "Placeholder" }],
+      image: "/anxicare/landing-page.png",
+      screenshots: [
+        { src: "/anxicare/landing-page.png", name: "Landing Page" },
+        { src: "/anxicare/user-login.png", name: "User Login" },
+        { src: "/anxicare/user-reg.png", name: "User Registration" },
+        { src: "/anxicare/user-dashboard.png", name: "User Dashboard" },
+        { src: "/anxicare/user-status.png", name: "Anxiety Status Display" },
+        { src: "/anxicare/admin-login.png", name: "Admin Login" },
+        { src: "/anxicare/admin-dashboard.png", name: "Admin Dashboard" },
+        { src: "/anxicare/admin-manage-users.png", name: "User Management" },
+      ],
       technologies: ["Laravel", "PHP", "SQL", "Python", "Flask", "Chart.js", "Tailwind CSS"],
       liveUrl: "https://example.com",
       githubUrl: "https://github.com",
@@ -535,7 +543,7 @@ export function Projects() {
                         onValueChange={(value) => handleAccordionChange(project.title, value)}
                       >
                         <AccordionItem value="problem" className="border-b border-border/50">
-                          <AccordionTrigger className="hover:no-underline py-4 px-4 rounded-lg transition-all duration-400">
+                          <AccordionTrigger className="cursor-pointer hover:no-underline py-4 px-4 rounded-lg transition-all duration-400">
                             <div className="flex items-center gap-3 text-left">
                               <AlertCircle className="w-5 h-5 text-red-500 flex-shrink-0" />
                               <span className="font-semibold">The Problem</span>
@@ -568,7 +576,7 @@ export function Projects() {
                         </AccordionItem>
 
                         <AccordionItem value="solution" className="border-b border-border/50">
-                          <AccordionTrigger className="hover:no-underline py-4 px-4 rounded-lg transition-all duration-400">
+                          <AccordionTrigger className="cursor-pointer hover:no-underline py-4 px-4 rounded-lg transition-all duration-400">
                             <div className="flex items-center gap-3 text-left">
                               <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0" />
                               <span className="font-semibold">The Solution</span>
@@ -601,7 +609,7 @@ export function Projects() {
                         </AccordionItem>
 
                         <AccordionItem value="contribution" className="border-b-0">
-                          <AccordionTrigger className="hover:no-underline py-4 px-4 rounded-lg transition-all duration-400">
+                          <AccordionTrigger className="cursor-pointer hover:no-underline py-4 px-4 rounded-lg transition-all duration-400">
                             <div className="flex items-center gap-3 text-left">
                               <User2 className="w-5 h-5 text-blue-500 flex-shrink-0" />
                               <span className="font-semibold">My Contribution</span>
@@ -1022,7 +1030,7 @@ export function Projects() {
         <AnimatePresence>
           {openScreenshotModal && (
             <Dialog open={!!openScreenshotModal} onOpenChange={() => setOpenScreenshotModal(null)}>
-              <DialogContent className="w-[95vw] max-w-[95vw] h-[95vh] max-h-[95vh] sm:w-[90vw] sm:max-w-[90vw] md:w-[85vw] md:max-w-6xl lg:w-[80vw] lg:max-w-7xl overflow-hidden p-0 gap-0">
+              <DialogContent className="w-[95vw] max-w-[95vw] h-[90vh] max-h-[90vh] sm:w-[90vw] sm:max-w-[90vw] md:w-[85vw] md:max-w-6xl lg:w-[80vw] lg:max-w-7xl overflow-hidden p-0 gap-0">
                 {/* Fixed Exit Button */}
                 <motion.button
                   className="fixed top-4 right-4 z-50 bg-background/80 backdrop-blur-sm border border-border rounded-full p-2 shadow-lg hover:bg-background transition-colors"
