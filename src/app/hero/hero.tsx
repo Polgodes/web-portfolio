@@ -148,7 +148,7 @@ export function Hero() {
           <motion.div className="flex flex-col sm:flex-row gap-4 justify-center items-center" variants={itemVariants}>
             {/* View Work button */}
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Button size="lg" className="text-lg px-8 py-3" onClick={handleScrollToProjects}>
+              <Button size="lg" className="cursor-pointer text-lg px-8 py-3" onClick={handleScrollToProjects}>
                 View My Work
               </Button>
             </motion.div>
@@ -158,7 +158,7 @@ export function Hero() {
               <Button
                 variant="outline"
                 size="lg"
-                className="text-lg px-8 py-3 bg-transparent flex items-center gap-2"
+                className="cursor-pointer text-lg px-8 py-3 bg-transparent flex items-center gap-2"
                 onClick={() => {
                   // Start download
                   const link = document.createElement("a")

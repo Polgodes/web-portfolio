@@ -426,7 +426,7 @@ export function Projects() {
                         transition={{ delay: 0.4, duration: 0.5 }}
                       >
                         <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                          <Button onClick={() => openScreenshots(project.title)}>
+                          <Button className="cursor-pointer" onClick={() => openScreenshots(project.title)}>
                             <Eye className="w-4 h-4 mr-2" />
                             See Screenshots
                           </Button>

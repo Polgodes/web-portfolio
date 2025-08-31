@@ -144,7 +144,7 @@ export function Navigation() {
                 </motion.div>
 
                 {/* Brand name */}
-                <span className="bg-gradient-to-r from-foreground via-primary to-foreground bg-clip-text text-transparent">
+                <span className="cursor-pointer bg-gradient-to-r from-foreground via-primary to-foreground bg-clip-text text-transparent">
                   adrian.dev
                 </span>
               </button>
@@ -161,7 +161,7 @@ export function Navigation() {
                 >
                   <button
                     onClick={() => handleNavClick(item.href)}
-                    className={`relative px-4 py-2 text-sm font-medium transition-all duration-300 rounded-xl hover:bg-white/10 ${
+                    className={`cursor-pointer relative px-4 py-2 text-sm font-medium transition-all duration-300 rounded-xl hover:bg-white/10 ${
                       activeSection === item.href
                         ? "text-primary bg-primary/10"
                         : "text-muted-foreground hover:text-foreground"
@@ -187,7 +187,7 @@ export function Navigation() {
                   variant="ghost"
                   size="icon"
                   onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                  className="h-9 w-9 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10"
+                  className="cursor-pointer h-9 w-9 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10"
                 >
                   <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
                   <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />

@@ -36,19 +36,19 @@ export function Footer() {
             <div className="space-y-2">
               <button
                 onClick={() => handleNavClick("#about")}
-                className="block text-muted-foreground hover:text-foreground transition-colors text-left"
+                className="cursor-pointer block text-muted-foreground hover:text-foreground transition-colors text-left"
               >
                 About
               </button>
               <button
                 onClick={() => handleNavClick("#projects")}
-                className="block text-muted-foreground hover:text-foreground transition-colors text-left"
+                className="cursor-pointer block text-muted-foreground hover:text-foreground transition-colors text-left"
               >
                 Projects
               </button>
               <button
                 onClick={() => handleNavClick("#contact")}
-                className="block text-muted-foreground hover:text-foreground transition-colors text-left"
+                className="cursor-pointer block text-muted-foreground hover:text-foreground transition-colors text-left"
               >
                 Contact
               </button>
