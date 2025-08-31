@@ -211,7 +211,7 @@ export function About() {
                   <Button
                     variant={activeTab === tab.id ? "default" : "ghost"}
                     onClick={() => setActiveTab(tab.id)}
-                    className="flex items-center gap-2 relative overflow-hidden"
+                    className="cursor-pointer flex items-center gap-2 relative overflow-hidden"
                   >
                     <motion.div
                       animate={{
