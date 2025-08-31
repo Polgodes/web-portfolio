@@ -62,7 +62,7 @@ export function Projects() {
       title: "Real-time Queueing System",
       description:
         "A local web application designed for RTU's MIS Office to manage queues in real-time. It supports dynamic form generation and efficiently handles hundreds of concurrent users with live updates.",
-      image: "/rtu_queuing_system/window-queue.png",
+      image: "/rtu_queuing_system/admin-auth.png",
       screenshots: [
         { src: "/rtu_queuing_system/window-queue.png", name: "Queue Display Window" },
         { src: "/rtu_queuing_system/admin-auth.png", name: "Admin Authentication" },
@@ -1022,7 +1022,7 @@ export function Projects() {
         <AnimatePresence>
           {openScreenshotModal && (
             <Dialog open={!!openScreenshotModal} onOpenChange={() => setOpenScreenshotModal(null)}>
-              <DialogContent className="w-[95vw] max-w-[95vw] h-[90vh] max-h-[90vh] sm:w-[90vw] sm:max-w-[90vw] md:w-[85vw] md:max-w-6xl lg:w-[80vw] lg:max-w-7xl overflow-hidden p-0 gap-0">
+              <DialogContent className="w-[95vw] max-w-[95vw] h-[95vh] max-h-[95vh] sm:w-[90vw] sm:max-w-[90vw] md:w-[85vw] md:max-w-6xl lg:w-[80vw] lg:max-w-7xl overflow-hidden p-0 gap-0">
                 {/* Fixed Exit Button */}
                 <motion.button
                   className="fixed top-4 right-4 z-50 bg-background/80 backdrop-blur-sm border border-border rounded-full p-2 shadow-lg hover:bg-background transition-colors"
