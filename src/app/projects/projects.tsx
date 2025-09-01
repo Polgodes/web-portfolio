@@ -69,16 +69,16 @@ export function Projects() {
         { src: "/rtu_queuing_system/admin-dashboard.png", name: "Admin Dashboard" },
         { src: "/rtu_queuing_system/admin-processed.png", name: "Admin - Processed Queue" },
         { src: "/rtu_queuing_system/admin-processing.png", name: "Admin - Processing Queue" },
-        { src: "/rtu_queuing_system/form1.png", name: "Registration Form - Step 1" },
+        { src: "/rtu_queuing_system/form.png", name: "Registration Form - Step 1" },
         { src: "/rtu_queuing_system/form2.png", name: "Registration Form - Step 2" },
         { src: "/rtu_queuing_system/form3.png", name: "Registration Form - Step 3" },
         { src: "/rtu_queuing_system/queue-number.png", name: "Queue Number Display" },
+        { src: "/rtu_queuing_system/super-admin-system-settings.png", name: "Super Admin - System Settings" },
         { src: "/rtu_queuing_system/super-admin-concern-management.png", name: "Super Admin - Concern Management" },
         { src: "/rtu_queuing_system/super-admin-dashboard.png", name: "Super Admin Dashboard" },
         { src: "/rtu_queuing_system/super-admin-history.png", name: "Super Admin - History" },
         { src: "/rtu_queuing_system/super-admin-stats.png", name: "Super Admin - Statistics" },
         { src: "/rtu_queuing_system/super-admin-stats2.png", name: "Super Admin - Detailed Stats" },
-        { src: "/rtu_queuing_system/super-admin-user-logs.png", name: "Super Admin - User Logs" },
         { src: "/rtu_queuing_system/super-admin-user-management.png", name: "Super Admin - User Management" },
       ],
       technologies: ["Next.js", "TypeScript", "Socket.IO", "Prisma", "Tailwind CSS", "Zustand"],
@@ -390,6 +390,8 @@ export function Projects() {
           {featuredProjects.map((project) => (
             <motion.div key={project.title} variants={cardVariants}>
               <motion.div
+                className="rounded-lg"
+                initial={{ borderWidth: 0, borderColor: "rgba(0,0,0,0)" }}
                 whileHover={{
                   y: -5,
                   boxShadow: "0 20px 40px rgba(0,0,0,0.1)",
@@ -399,7 +401,6 @@ export function Projects() {
                 <Card className="overflow-hidden">
                   {/* Project Header */}
                   <div className="relative group">
-                    {/* Removed the scaling animation from the image container */}
                     <div className="overflow-hidden">
                       <Image
                         src={project.image || "/placeholder.svg"}
@@ -480,39 +481,35 @@ export function Projects() {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.6, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                     >
-                      <style jsx global>{`
+                      {/* <style jsx global>{`
                         .smooth-accordion [data-state="open"] > div[data-accordion-content] {
-                          animation: accordion-down 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+                          animation: accordion-down 0.3s cubic-bezier(0.4, 0, 0.2, 1);
                         }
                         .smooth-accordion [data-state="closed"] > div[data-accordion-content] {
-                          animation: accordion-up 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+                          animation: accordion-up 0.3s cubic-bezier(0.4, 0, 0.2, 1);
                         }
                         @keyframes accordion-down {
                           from {
                             height: 0;
                             opacity: 0;
-                            transform: translateY(-10px);
                           }
                           to {
                             height: var(--radix-accordion-content-height);
                             opacity: 1;
-                            transform: translateY(0);
                           }
                         }
                         @keyframes accordion-up {
                           from {
                             height: var(--radix-accordion-content-height);
                             opacity: 1;
-                            transform: translateY(0);
                           }
                           to {
                             height: 0;
                             opacity: 0;
-                            transform: translateY(-10px);
                           }
                         }
                         .smooth-accordion [data-accordion-trigger] {
-                          transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+                          transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
                           transform-origin: center;
                         }
                         .smooth-accordion [data-accordion-trigger]:hover {
@@ -525,17 +522,18 @@ export function Projects() {
                           background-color: hsl(var(--accent)/0.5);
                         }
                         .smooth-accordion [data-accordion-trigger][data-state="open"] svg {
-                          transform: rotate(180deg) scale(1.1);
-                          transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+                          transform: rotate(180deg);
+                          transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
                         }
                         .smooth-accordion [data-accordion-trigger] svg {
-                          transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+                          transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
                         }
                         .smooth-accordion [data-accordion-content] {
                           overflow: hidden;
+                          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
                         }
-                      `}</style>
-                      <Accordion
+                      `}</style> */}
+                      <Accordion 
                         type="single"
                         collapsible
                         className="w-full smooth-accordion"
@@ -1033,7 +1031,7 @@ export function Projects() {
         <AnimatePresence aria-label="Project screenshots">
           {openScreenshotModal && (
             <Dialog open={!!openScreenshotModal} onOpenChange={() => setOpenScreenshotModal(null)}>
-              <DialogContent className="w-[95vw] max-w-[95vw] h-[90vh] max-h-[90vh] sm:w-[90vw] sm:max-w-[90vw] md:w-[85vw] md:max-w-6xl lg:w-[80vw] lg:max-w-7xl overflow-hidden p-0 gap-0">
+              <DialogContent className="w-[95vw] max-w-[95vw] sm:w-[90vw] sm:max-w-[90vw] md:w-[85vw] md:max-w-6xl lg:w-[80vw] lg:max-w-7xl max-h-[95vh] overflow-hidden p-0 gap-0 flex flex-col">
                 {/* Fixed Exit Button */}
                 <motion.button
                   className="fixed top-4 right-4 z-50 bg-background/80 backdrop-blur-sm border border-border rounded-full p-2 shadow-lg hover:bg-background transition-colors"
