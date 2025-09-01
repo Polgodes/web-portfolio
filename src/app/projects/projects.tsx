@@ -346,7 +346,7 @@ export function Projects() {
   return (
     <motion.section
       ref={sectionRef}
-      id="projects" // Ensure this ID is present
+      id="projects"
       className="py-20 overflow-hidden scroll-mt-24" // Added scroll-mt-24 for proper offset
       initial="hidden"
       animate={isInView ? "visible" : "hidden"}
@@ -643,7 +643,7 @@ export function Projects() {
             animate={otherInView ? "visible" : "hidden"}
           >
             <motion.h3
-              className="text-2xl font-bold text-center mb-8"
+              className="text-2xl font-bold text-center mb-4"
               variants={itemVariants}
               whileHover={{
                 scale: 1.02,
@@ -653,6 +653,9 @@ export function Projects() {
             >
               Other Projects
             </motion.h3>
+            <p className="text-center text-sm text-muted-foreground mb-8">
+              Stay tuned, I’m still adding more projects to this portfolio.
+            </p>
             <motion.div
               className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
               variants={containerVariants}
@@ -1027,7 +1030,7 @@ export function Projects() {
           </motion.div>
         )}
 
-        <AnimatePresence>
+        <AnimatePresence aria-label="Project screenshots">
           {openScreenshotModal && (
             <Dialog open={!!openScreenshotModal} onOpenChange={() => setOpenScreenshotModal(null)}>
               <DialogContent className="w-[95vw] max-w-[95vw] h-[90vh] max-h-[90vh] sm:w-[90vw] sm:max-w-[90vw] md:w-[85vw] md:max-w-6xl lg:w-[80vw] lg:max-w-7xl overflow-hidden p-0 gap-0">
