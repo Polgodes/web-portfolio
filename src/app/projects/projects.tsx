@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { motion, AnimatePresence, useInView, type Variants, type Transition } from "framer-motion"
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import {
   ExternalLink,
   Github,
@@ -24,7 +24,7 @@ import { useState, useRef, useEffect } from "react"
 
 export function Projects() {
   const [hoveredProject, setHoveredProject] = useState<string | null>(null)
-  const [openAccordions, setOpenAccordions] = useState<Record<string, string>>({})
+  // const [openAccordions, setOpenAccordions] = useState<Record<string, string>>({})
   const [openModal, setOpenModal] = useState<string | null>(null)
   const [openScreenshotModal, setOpenScreenshotModal] = useState<string | null>(null)
   const [currentScreenshotIndex, setCurrentScreenshotIndex] = useState(0)
@@ -89,7 +89,7 @@ export function Projects() {
       solution:
         "Developed a comprehensive real-time queueing system with live updates, dynamic form generation, and queue position tracking. The system supports hundreds of concurrent users with WebSocket connections for instant notifications and includes an admin dashboard for queue management.",
       contribution:
-        "I designed and developed several key features for the super-admin interface, including real-time statistics, user logs, and queue management tools. I handled both frontend and backend development using technologies like Socket.IO for live updates and Prisma for database integration, ensuring the system could support 300+ concurrent users with 99.9% uptime.",
+        "I designed and developed several key features for the super-admin interface, including real-time statistics dashboards, detailed user logs, and advanced queue management tools. I contributed to both frontend and backend development, leveraging Socket.IO to deliver live updates and Prisma ORM for efficient database integration. To ensure scalability, I optimized database queries and implemented caching strategies, enabling the system to reliably support 300+ concurrent users with 99.9% uptime. Additionally, I focused on creating a seamless user experience by implementing responsive UI components, role-based access control, and audit trail features, which improved system transparency and operational efficiency.",
       challenges: [
         "Handling 300+ concurrent WebSocket connections efficiently",
         "Implementing real-time queue position updates without conflicts",
@@ -97,7 +97,7 @@ export function Projects() {
         "Ensuring system reliability during peak usage hours",
       ],
       results: [
-        "85% reduction in average wait time",
+        "Positively reduced in average wait time",
         "99.9% system uptime achieved",
         "Positive feedback from amongst users",
         "Eliminated queue confusion and overcrowding",
@@ -120,8 +120,7 @@ export function Projects() {
         { src: "/anxicare/admin-manage-users.png", name: "User Management" },
       ],
       technologies: ["Laravel", "PHP", "SQL", "Python", "Flask", "Chart.js", "Tailwind CSS"],
-      liveUrl: "https://example.com",
-      githubUrl: "https://github.com",
+      plan: "Planning to migrate the project to the Next.js framework, since the current version is no longer maintained and does not have a GitHub repository.",
       problem:
         "Mental health assessment in academic institutions lacked systematic approaches to identify students at risk of generalized anxiety disorder, leading to delayed interventions and inadequate support systems.",
       solution:
@@ -336,13 +335,6 @@ export function Projects() {
     },
   }
 
-  const handleAccordionChange = (projectTitle: string, value: string) => {
-    setOpenAccordions((prev) => ({
-      ...prev,
-      [projectTitle]: prev[projectTitle] === value ? "" : value,
-    }))
-  }
-
   return (
     <motion.section
       ref={sectionRef}
@@ -453,8 +445,10 @@ export function Projects() {
                       transition={{ delay: 0.5, duration: 0.5 }}
                     >
                       <h5 className="font-semibold mb-3">Technologies Used</h5>
+
+                      {/* Technologies Badges */}
                       <motion.div
-                        className="flex flex-wrap gap-2"
+                        className="flex flex-wrap gap-2 mb-4"
                         variants={containerVariants}
                         initial="hidden"
                         animate="visible"
@@ -474,6 +468,13 @@ export function Projects() {
                           </motion.div>
                         ))}
                       </motion.div>
+
+                      {/* Plan / Notes */}
+                      {project.plan && (
+                        <p className="text-sm text-muted-foreground leading-relaxed italic">
+                          {project.plan}
+                        </p>
+                      )}
                     </motion.div>
 
                     <motion.div
@@ -481,149 +482,88 @@ export function Projects() {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.6, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                     >
-                      {/* <style jsx global>{`
-                        .smooth-accordion [data-state="open"] > div[data-accordion-content] {
-                          animation: accordion-down 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-                        }
-                        .smooth-accordion [data-state="closed"] > div[data-accordion-content] {
-                          animation: accordion-up 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-                        }
-                        @keyframes accordion-down {
-                          from {
-                            height: 0;
-                            opacity: 0;
-                          }
-                          to {
-                            height: var(--radix-accordion-content-height);
-                            opacity: 1;
-                          }
-                        }
-                        @keyframes accordion-up {
-                          from {
-                            height: var(--radix-accordion-content-height);
-                            opacity: 1;
-                          }
-                          to {
-                            height: 0;
-                            opacity: 0;
-                          }
-                        }
-                        .smooth-accordion [data-accordion-trigger] {
-                          transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-                          transform-origin: center;
-                        }
-                        .smooth-accordion [data-accordion-trigger]:hover {
-                          background-color: hsl(var(--accent));
-                          color: hsl(var(--accent-foreground));
-                          transform: translateY(-1px);
-                          box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-                        }
-                        .smooth-accordion [data-accordion-trigger][data-state="open"] {
-                          background-color: hsl(var(--accent)/0.5);
-                        }
-                        .smooth-accordion [data-accordion-trigger][data-state="open"] svg {
-                          transform: rotate(180deg);
-                          transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-                        }
-                        .smooth-accordion [data-accordion-trigger] svg {
-                          transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-                        }
-                        .smooth-accordion [data-accordion-content] {
-                          overflow: hidden;
-                          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-                        }
-                      `}</style> */}
-                      <Accordion 
-                        type="single"
-                        collapsible
-                        className="w-full smooth-accordion"
-                        value={openAccordions[project.title] || ""}
-                        onValueChange={(value) => handleAccordionChange(project.title, value)}
-                      >
-                        <AccordionItem value="problem" className="border-b border-border/50">
-                          <AccordionTrigger className="cursor-pointer hover:no-underline py-4 px-4 rounded-lg transition-all duration-400">
-                            <div className="flex items-center gap-3 text-left">
-                              <AlertCircle className="w-5 h-5 text-red-500 flex-shrink-0" />
-                              <span className="font-semibold">The Problem</span>
-                            </div>
-                          </AccordionTrigger>
-                          <AccordionContent className="px-4 pb-4">
-                            <motion.div
-                              initial={{ opacity: 0, y: 15 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              transition={{ duration: 0.4, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-                            >
-                              <p className="text-muted-foreground leading-relaxed mb-4">{project.problem}</p>
-                              <div>
-                                <h6 className="font-medium mb-2">Key Challenges:</h6>
-                                <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground">
-                                  {project.challenges.map((challenge, idx) => (
-                                    <motion.li
-                                      key={idx}
-                                      initial={{ opacity: 0, x: -15 }}
-                                      animate={{ opacity: 1, x: 0 }}
-                                      transition={{ delay: 0.2 + idx * 0.1, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                                    >
-                                      {challenge}
-                                    </motion.li>
-                                  ))}
-                                </ul>
-                              </div>
-                            </motion.div>
-                          </AccordionContent>
-                        </AccordionItem>
+                      <Tabs defaultValue="problem" className="w-full">
+                        <TabsList className="grid w-full grid-cols-3 mb-6">
+                          <TabsTrigger value="problem" className="flex items-center gap-2">
+                            <AlertCircle className="w-4 h-4 text-red-500" />
+                            <span className="hidden sm:inline">The Problem</span>
+                            <span className="sm:hidden">Problem</span>
+                          </TabsTrigger>
+                          <TabsTrigger value="solution" className="flex items-center gap-2">
+                            <CheckCircle2 className="w-4 h-4 text-green-500" />
+                            <span className="hidden sm:inline">The Solution</span>
+                            <span className="sm:hidden">Solution</span>
+                          </TabsTrigger>
+                          <TabsTrigger value="contribution" className="flex items-center gap-2">
+                            <User2 className="w-4 h-4 text-blue-500" />
+                            <span className="hidden sm:inline">My Contribution</span>
+                            <span className="sm:hidden">Contribution</span>
+                          </TabsTrigger>
+                        </TabsList>
 
-                        <AccordionItem value="solution" className="border-b border-border/50">
-                          <AccordionTrigger className="cursor-pointer hover:no-underline py-4 px-4 rounded-lg transition-all duration-400">
-                            <div className="flex items-center gap-3 text-left">
-                              <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0" />
-                              <span className="font-semibold">The Solution</span>
+                        <TabsContent value="problem" className="mt-0">
+                          <motion.div
+                            initial={{ opacity: 0, y: 15 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+                            className="p-4 rounded-lg border bg-card"
+                          >
+                            <p className="text-muted-foreground leading-relaxed mb-4">{project.problem}</p>
+                            <div>
+                              <h6 className="font-medium mb-2">Key Challenges:</h6>
+                              <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground">
+                                {project.challenges.map((challenge, idx) => (
+                                  <motion.li
+                                    key={idx}
+                                    initial={{ opacity: 0, x: -15 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{ delay: 0.2 + idx * 0.1, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                                  >
+                                    {challenge}
+                                  </motion.li>
+                                ))}
+                              </ul>
                             </div>
-                          </AccordionTrigger>
-                          <AccordionContent className="px-4 pb-4">
-                            <motion.div
-                              initial={{ opacity: 0, y: 15 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              transition={{ duration: 0.4, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-                            >
-                              <p className="text-muted-foreground leading-relaxed mb-4">{project.solution}</p>
-                              <div>
-                                <h6 className="font-medium mb-2">Key Results:</h6>
-                                <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground">
-                                  {project.results.map((result, idx) => (
-                                    <motion.li
-                                      key={idx}
-                                      initial={{ opacity: 0, x: -15 }}
-                                      animate={{ opacity: 1, x: 0 }}
-                                      transition={{ delay: 0.2 + idx * 0.1, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                                    >
-                                      {result}
-                                    </motion.li>
-                                  ))}
-                                </ul>
-                              </div>
-                            </motion.div>
-                          </AccordionContent>
-                        </AccordionItem>
+                          </motion.div>
+                        </TabsContent>
 
-                        <AccordionItem value="contribution" className="border-b-0">
-                          <AccordionTrigger className="cursor-pointer hover:no-underline py-4 px-4 rounded-lg transition-all duration-400">
-                            <div className="flex items-center gap-3 text-left">
-                              <User2 className="w-5 h-5 text-blue-500 flex-shrink-0" />
-                              <span className="font-semibold">My Contribution</span>
+                        <TabsContent value="solution" className="mt-0">
+                          <motion.div
+                            initial={{ opacity: 0, y: 15 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+                            className="p-4 rounded-lg border bg-card"
+                          >
+                            <p className="text-muted-foreground leading-relaxed mb-4">{project.solution}</p>
+                            <div>
+                              <h6 className="font-medium mb-2">Key Results:</h6>
+                              <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground">
+                                {project.results.map((result, idx) => (
+                                  <motion.li
+                                    key={idx}
+                                    initial={{ opacity: 0, x: -15 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{ delay: 0.2 + idx * 0.1, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                                  >
+                                    {result}
+                                  </motion.li>
+                                ))}
+                              </ul>
                             </div>
-                          </AccordionTrigger>
-                          <AccordionContent className="px-4 pb-4">
-                            <motion.div
-                              initial={{ opacity: 0, y: 15 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              transition={{ duration: 0.4, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-                            >
-                              <p className="text-muted-foreground leading-relaxed">{project.contribution}</p>
-                            </motion.div>
-                          </AccordionContent>
-                        </AccordionItem>
-                      </Accordion>
+                          </motion.div>
+                        </TabsContent>
+
+                        <TabsContent value="contribution" className="mt-0">
+                          <motion.div
+                            initial={{ opacity: 0, y: 15 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+                            className="p-4 rounded-lg border bg-card"
+                          >
+                            <p className="text-muted-foreground leading-relaxed">{project.contribution}</p>
+                          </motion.div>
+                        </TabsContent>
+                      </Tabs>
                     </motion.div>
                   </CardContent>
                 </Card>
@@ -912,36 +852,28 @@ export function Projects() {
                               </motion.div>
 
                               {/* Links */}
-                              <motion.div
-                                className="flex flex-col sm:flex-row gap-3"
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.4, duration: 0.5 }}
-                              >
-                                <motion.div
-                                  whileHover={{ scale: 1.05 }}
-                                  whileTap={{ scale: 0.95 }}
-                                  className="flex-1 sm:flex-none"
-                                >
-                                  <Button asChild className="w-full sm:w-auto">
-                                    <Link href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-                                      <ExternalLink className="w-4 h-4 mr-2" />
-                                      Live Demo
-                                    </Link>
-                                  </Button>
-                                </motion.div>
-                                <motion.div
-                                  whileHover={{ scale: 1.05 }}
-                                  whileTap={{ scale: 0.95 }}
-                                  className="flex-1 sm:flex-none"
-                                >
-                                  <Button variant="secondary" asChild className="w-full sm:w-auto">
-                                    <Link href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-                                      <Github className="w-4 h-4 mr-2" />
-                                      View Code
-                                    </Link>
-                                  </Button>
-                                </motion.div>
+                              <motion.div className="flex flex-col sm:flex-row gap-3">
+                                {project.liveUrl && (
+                                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="flex-1 sm:flex-none">
+                                    <Button asChild className="w-full sm:w-auto">
+                                      <Link href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+                                        <ExternalLink className="w-4 h-4 mr-2" />
+                                        Live Demo
+                                      </Link>
+                                    </Button>
+                                  </motion.div>
+                                )}
+
+                                {project.githubUrl && (
+                                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="flex-1 sm:flex-none">
+                                    <Button variant="secondary" asChild className="w-full sm:w-auto">
+                                      <Link href={project.githubUrl} target="_blank" rel="noopener noreferrer">
+                                        <Github className="w-4 h-4 mr-2" />
+                                        View Code
+                                      </Link>
+                                    </Button>
+                                  </motion.div>
+                                )}
                               </motion.div>
 
                               {/* Detailed Sections */}
