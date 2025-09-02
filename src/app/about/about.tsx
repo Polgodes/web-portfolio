@@ -46,22 +46,22 @@ export function About() {
         ],
       },
     },
-    {
-      id: "gamer",
-      label: "Gamer",
-      icon: <Gamepad2 className="w-5 h-5" />,
-      content: {
-        title: "Gaming Enthusiast",
-        description:
-          "When I'm not immersed in code, you'll find me strategizing in Valorant or climbing ranks in League of Legends: Wild Rift. Gaming isn't just a hobby for me—it's where I learn teamwork, quick decision-making, and how to stay calm under pressure.",
-        details: [
-          "Valorant player - love the tactical gameplay",
-          "League of Legends: Wild Rift enthusiast",
-          "Enjoys various online multiplayer games",
-          "Gaming helps me unwind and think creatively",
-        ],
-      },
-    },
+    // {
+    //   id: "gamer",
+    //   label: "Gamer",
+    //   icon: <Gamepad2 className="w-5 h-5" />,
+    //   content: {
+    //     title: "Gaming Enthusiast",
+    //     description:
+    //       "When I'm not immersed in code, you'll find me strategizing in Valorant or climbing ranks in League of Legends: Wild Rift. Gaming isn't just a hobby for me—it's where I learn teamwork, quick decision-making, and how to stay calm under pressure.",
+    //     details: [
+    //       "Valorant player - love the tactical gameplay",
+    //       "League of Legends: Wild Rift enthusiast",
+    //       "Enjoys various online multiplayer games",
+    //       "Gaming helps me unwind and think creatively",
+    //     ],
+    //   },
+    // },
   ]
 
   const services = [
