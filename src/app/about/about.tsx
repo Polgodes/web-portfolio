@@ -22,7 +22,7 @@ export function About() {
       content: {
         title: "The Developer",
         description:
-          "I'm a passionate full-stack developer who loves creating digital solutions that make a difference.",
+          "I'm a Computer Science degree holder and passionate full-stack developer who loves creating digital solutions that make a difference.",
         details: [
           "Fresh graduate with hands-on experience in web development",
           "Specialized in React, Next.js, and TypeScript",
