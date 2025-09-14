@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useMemo } from "react"
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { ArrowDown, Github, Linkedin, Mail, Code, Palette, Sparkles, Loader2, Check } from "lucide-react"
@@ -15,17 +15,18 @@ export function Hero() {
   const [downloading, setDownloading] = useState(false)
   const [completed, setCompleted] = useState(false)
 
-  const dynamicTexts = [
-    { text: "Full-Stack Web Developer & UI/UX Specialist", icon: Code },
-    { text: "I design, develop, and deploy digital solutions", icon: Palette },
-    { text: "Building high-impact web experiences", icon: Sparkles },
-    { text: "Turning ideas into scalable digital products", icon: Code },
-    { text: "Code meets design, user meets value", icon: Palette },
-  ]
-
+  const dynamicTexts = useMemo(
+    () => [
+      { text: "Full-Stack Web Developer & UI/UX Specialist", icon: Code },
+      { text: "I design, develop, and deploy digital solutions", icon: Palette },
+      { text: "Building high-impact web experiences", icon: Sparkles },
+      { text: "Turning ideas into scalable digital products", icon: Code },
+      { text: "Code meets design, user meets value", icon: Palette },
+    ],
+    [],
+  )
 
   useEffect(() => {
-
     const currentTextObj = dynamicTexts[currentTextIndex]
     const fullText = currentTextObj.text
     let timeoutId: NodeJS.Timeout

@@ -137,7 +137,7 @@ export function Navigation() {
                   <motion.span
                     className="text-primary text-lg font-mono"
                     animate={{ opacity: [1, 0, 1] }}
-                    transition={{ duration: 0.8, repeat: Infinity, ease: "linear" }}
+                    transition={{ duration: 0.8, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
                   >
                     _
                   </motion.span>
@@ -227,7 +227,7 @@ export function Navigation() {
                           <motion.span
                             className="text-primary text-2xl font-mono"
                             animate={{ opacity: [1, 0, 1] }}
-                            transition={{ duration: 0.8, repeat: Infinity, ease: "linear" }}
+                            transition={{ duration: 0.8, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
                           >
                             _
                           </motion.span>
